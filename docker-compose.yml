@@ -5,18 +5,16 @@ services:
   # Postgresql Database
   # =========================
   postgres:
-    image: postgres:15
+    image: postgres:16
     container_name: medcon-db
     environment:
       POSTGRES_DB: medcon
-      POSTGRES_USER: medcon_user
-      POSTGRES_PASSWORD: medcon_pass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks:
-      - medcon-net
 
   # =========================
   # Spring Boot Backend
@@ -34,8 +32,6 @@ services:
   #      - "8080:8080"
   #    depends_on:
   #      - postgres
-  #    networks:
-  #      - medcon-net
 
   # =========================
   # Node.js WebSocket Server
@@ -49,8 +45,6 @@ services:
   #      PORT: 3001
   #    ports:
   #      - "3001:3001"
-  #    networks:
-  #      - medcon-net
 
   # =========================
   # Angular Frontend with NGINX
@@ -65,15 +59,9 @@ services:
 #    depends_on:
 #      - backend-springboot
 #      - backend-nodejs
-#    networks:
-#      - medcon-net
 
 # =========================
-# Networks & Volumes
+# Volumes
 # =========================
-networks:
-  medcon-net:
-    driver: bridge
-
 volumes:
   postgres_data:

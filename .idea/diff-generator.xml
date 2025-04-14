@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDbValue" value="58288c3b-a0c3-4b0d-85a7-49115aab5845" />
+    <option name="sourceModelValue" value="backend-springboot:backend-springboot" />
+    <option name="targetDbValue" value="58288c3b-a0c3-4b0d-85a7-49115aab5845" />
+  </component>
+</project>
