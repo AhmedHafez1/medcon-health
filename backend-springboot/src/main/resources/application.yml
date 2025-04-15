@@ -14,9 +14,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  flyway:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
     enabled: true
-    locations: classpath:db/migration
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
 jwt:
   secret: medconSuperSecretKey123
