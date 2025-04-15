@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-admin-user
+      author: Ahmad
+      comment: Insert default admin user
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: full_name
+                  value: Admin User
+              - column:
+                  name: email
+                  value: admin@medcon.com
+              - column:
+                  name: password
+                  value: $2a$12$pZ229zbG3dK4Kdieyp7sJuzVYQzol6vaPSdgN5Umz0SQxrvDeuDCW
+              - column:
+                  name: role
+                  value: ADMIN

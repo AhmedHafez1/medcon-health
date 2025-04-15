@@ -1,33 +1,9 @@
 databaseChangeLog:
-  - changeSet:
-      id: 001-create-users-table
-      author: medcon-dev
-      changes:
-        - createTable:
-            tableName: users
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: full_name
-                  type: VARCHAR(100)
-              - column:
-                  name: email
-                  type: VARCHAR(100)
-                  constraints:
-                    nullable: false
-                    unique: true
-              - column:
-                  name: password
-                  type: TEXT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: role
-                  type: VARCHAR(20)
-                  constraints:
-                    nullable: false
+  - include:
+      file: db/changelog/001-create-users-table.yaml
+  - include:
+      file: db/changelog/002-insert-admin-user.yaml
+  - include:
+      file: db/changelog/003-add-address-user.yaml
+  - include:
+      file: db/changelog/004-full_name-not-nullable.yaml
