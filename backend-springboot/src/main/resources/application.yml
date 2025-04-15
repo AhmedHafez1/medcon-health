@@ -4,8 +4,9 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/medcon
-    username: medcon_user
-    password: medcon_pass
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,7 +14,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   flyway:
     enabled: true
     locations: classpath:db/migration
