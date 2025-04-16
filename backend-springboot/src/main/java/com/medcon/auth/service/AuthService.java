@@ -4,7 +4,7 @@ import com.medcon.auth.dto.AuthResponse;
 import com.medcon.auth.dto.LoginRequest;
 import com.medcon.auth.dto.RegisterRequest;
 import com.medcon.auth.entity.User;
-import com.medcon.auth.repository.UserRepository;
+import com.medcon.user.repository.UserRepository;
 import com.medcon.exception.AlreadyExistsException;
 import com.medcon.exception.InvalidCredentialsException;
 import lombok.RequiredArgsConstructor;

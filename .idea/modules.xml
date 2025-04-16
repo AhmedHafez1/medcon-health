@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/backend-springboot/backend-springboot.iml" filepath="$PROJECT_DIR$/backend-springboot/backend-springboot.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/medcon.iml" filepath="$PROJECT_DIR$/.idea/medcon.iml" />
     </modules>
   </component>

@@ -1,4 +1,4 @@
-package com.medcon.auth.mapper;
+package com.medcon.user.mapper;
 
 import com.medcon.auth.dto.UserDto;
 import com.medcon.auth.entity.User;

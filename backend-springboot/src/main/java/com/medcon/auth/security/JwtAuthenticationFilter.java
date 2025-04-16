@@ -1,6 +1,6 @@
 package com.medcon.auth.security;
 
-import com.medcon.auth.repository.UserRepository;
+import com.medcon.user.repository.UserRepository;
 import com.medcon.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
