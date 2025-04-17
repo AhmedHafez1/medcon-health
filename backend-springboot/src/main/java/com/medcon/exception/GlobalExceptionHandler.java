@@ -2,6 +2,7 @@ package com.medcon.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,6 +50,15 @@ public class GlobalExceptionHandler {
                 "timestamp", LocalDateTime.now(),
                 "message", ex.getMessage(),
                 "status", HttpStatus.UNAUTHORIZED.value()
+        ));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "message", "You do not have permission to access this resource",
+                "status", HttpStatus.FORBIDDEN.value()
         ));
     }
 
