@@ -11,6 +11,6 @@ public record RegisterRequest(
         @Email @NotBlank String email,
         @Size(min = 6, message = "Password must be at least 6 characters long") String password,
         @NotNull Role role,
-        String address,
+        String address
 ) {
 }
