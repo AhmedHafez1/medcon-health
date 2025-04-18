@@ -1,0 +1,103 @@
+@import "../../../../styles/variables";
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 2rem;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: $card-border-radius;
+  box-shadow: $card-shadow;
+}
+
+mat-card-header {
+  padding: 24px 24px 0;
+  margin-bottom: 8px;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: $title-color;
+}
+
+mat-card-subtitle {
+  color: $subtitle-color;
+  font-size: 16px;
+}
+
+mat-card-content {
+  padding: 0 24px 24px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.role-selection {
+  margin: 16px 0 24px;
+}
+
+.role-label {
+  display: block;
+  margin-bottom: 8px;
+  color: $label-color;
+  font-size: 14px;
+}
+
+.role-radio-group {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.role-radio-button {
+  margin-right: 16px;
+}
+
+.terms-checkbox {
+  margin: 16px 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  gap: 12px;
+}
+
+.submit-button {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.secondary-button {
+  font-weight: 400;
+}
+
+.spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 599px) {
+  .register-container {
+    padding: 0 1rem;
+  }
+
+  .role-radio-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
