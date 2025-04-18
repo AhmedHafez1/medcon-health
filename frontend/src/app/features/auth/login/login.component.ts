@@ -31,7 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss', '../auth.scss'],
   standalone: true,
 })
 export class LoginComponent implements OnInit {

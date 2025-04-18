@@ -1,5 +1,5 @@
-<div class="register-container">
-  <mat-card class="register-card">
+<div class="auth-container">
+  <mat-card class="auth-card">
     <mat-card-header>
       <mat-card-title>Login to your account</mat-card-title>
       <mat-card-subtitle>Enjoy our healthcare platform</mat-card-subtitle>
@@ -76,15 +76,15 @@
               diameter="20"
               class="spinner"
             ></mat-spinner>
-            <span *ngIf="!isSubmitting">Register</span>
+            <span *ngIf="!isSubmitting">Login</span>
           </button>
           <button
             mat-button
             type="button"
-            routerLink="/login"
+            routerLink="/register"
             class="secondary-button"
           >
-            Already have an account? Login
+            Don't have an account? Register
           </button>
         </div>
       </form>

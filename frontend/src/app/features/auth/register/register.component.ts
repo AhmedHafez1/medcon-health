@@ -39,7 +39,7 @@ import { Role } from '../../../shared/enums/Role.enum';
     MatIconModule,
   ],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss', '../auth.scss'],
 })
 export class RegisterComponent implements OnInit {
   roles = ['PATIENT', 'DOCTOR'];
