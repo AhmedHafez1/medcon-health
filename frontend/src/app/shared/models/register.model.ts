@@ -1,9 +1,9 @@
-import { Role } from '../enums/Role.enum';
+import { ROLE } from '../enums/role.enum';
 
 export interface Register {
   fullName: string;
   email: string;
   password: string;
-  role: Role;
+  role: ROLE;
   address: string;
 }

@@ -1,10 +1,9 @@
 package com.medcon.user.service;
 
-import com.medcon.auth.dto.UserDto;
+import com.medcon.user.dto.UserDto;
 import com.medcon.exception.UnAuthorizedException;
 import com.medcon.user.mapper.UserMapper;
 import com.medcon.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

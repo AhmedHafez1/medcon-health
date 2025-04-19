@@ -1,6 +1,6 @@
 package com.medcon.user;
 
-import com.medcon.auth.dto.UserDto;
+import com.medcon.user.dto.UserDto;
 import com.medcon.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

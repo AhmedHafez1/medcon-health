@@ -1,4 +1,4 @@
-package com.medcon.auth.dto;
+package com.medcon.user.dto;
 
 import com.medcon.auth.entity.Role;
 
