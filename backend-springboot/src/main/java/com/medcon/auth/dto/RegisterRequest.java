@@ -1,6 +1,6 @@
 package com.medcon.auth.dto;
 
-import com.medcon.auth.entity.Role;
+import com.medcon.user.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

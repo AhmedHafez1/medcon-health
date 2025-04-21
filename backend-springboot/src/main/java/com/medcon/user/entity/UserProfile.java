@@ -1,42 +1,41 @@
-package com.medcon.doctor.entity;
+package com.medcon.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
-@Table(name = "doctor_availability")
-@NoArgsConstructor
+@Table(name = "user_profile")
 @AllArgsConstructor
-@Data
+@NoArgsConstructor
 @Builder
-public class DoctorAvailability {
+@Data
+public class UserProfile {
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "day_of_week", nullable = false)
-    private Integer dayOfWeek;  // 0 = Sunday, 1 = Monday, etc.
+    private LocalDate dob;
+    private String gender;
+    private String phone;
 
-    @Column(name = "start_time", nullable = false)
-    private LocalTime startTime;
-
-    @Column(name = "end_time", nullable = false)
-    private LocalTime endTime;
-
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private Doctor doctor;
+    @Column(name = "profile_picture")
+    private String profilePicture;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @PrePersist
     public void onCreate() {

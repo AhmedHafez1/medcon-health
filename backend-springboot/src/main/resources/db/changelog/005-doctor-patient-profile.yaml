@@ -1,0 +1,256 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1745106676967-1
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_doctor
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: specialization
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: license_number
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: experience
+                  type: INT
+              - column:
+                  name: bio
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: consultation_fee
+                  type: DECIMAL
+              - column:
+                  name: is_verified
+                  type: BOOLEAN
+              - column:
+                  name: average_rating
+                  type: DECIMAL
+              - column:
+                  name: total_ratings
+                  type: INT
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+            tableName: doctor
+  - changeSet:
+      id: 1745106676967-2
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_doctor_availability
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: day_of_week
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: start_time
+                  type: TIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: end_time
+                  type: TIME
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+            tableName: doctor_availability
+  - changeSet:
+      id: 1745106676967-3
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_patients
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: emergency_contact
+                  type: VARCHAR(255)
+              - column:
+                  name: blood_type
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+            tableName: patients
+  - changeSet:
+      id: 1745106676967-4
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_user_profile
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: dob
+                  type: DATE
+              - column:
+                  name: gender
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  name: profile_picture
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+            tableName: user_profile
+  - changeSet:
+      id: 1745106676967-5
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+            tableName: users
+  - changeSet:
+      id: 1745106676967-7
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: license_number
+            constraintName: uc_doctor_license_number
+            tableName: doctor
+  - changeSet:
+      id: 1745106676967-8
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: user_id
+            constraintName: uc_doctor_user
+            tableName: doctor
+  - changeSet:
+      id: 1745106676967-9
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: user_id
+            constraintName: uc_patients_user
+            tableName: patients
+  - changeSet:
+      id: 1745106676967-10
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: user_id
+            constraintName: uc_user_profile_user
+            tableName: user_profile
+  - changeSet:
+      id: 1745106676967-11
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: doctor
+            constraintName: FK_DOCTOR_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1745106676967-12
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: patients
+            constraintName: FK_PATIENTS_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1745106676967-13
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_profile
+            constraintName: FK_USER_PROFILE_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+

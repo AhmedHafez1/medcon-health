@@ -1,6 +1,6 @@
 package com.medcon.doctor.entity;
 
-import com.medcon.auth.entity.User;
+import com.medcon.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

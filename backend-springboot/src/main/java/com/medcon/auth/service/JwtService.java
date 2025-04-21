@@ -1,6 +1,6 @@
 package com.medcon.auth.service;
 
-import com.medcon.auth.entity.User;
+import com.medcon.user.entity.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.io.Decoders;

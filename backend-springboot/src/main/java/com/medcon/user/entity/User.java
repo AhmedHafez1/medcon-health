@@ -1,5 +1,7 @@
-package com.medcon.auth.entity;
+package com.medcon.user.entity;
 
+import com.medcon.doctor.entity.Doctor;
+import com.medcon.patient.entity.Patient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,6 +44,12 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserProfile userProfile;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Patient patient;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Doctor doctor;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DiffGenerationConfig">
     <option name="snapshotDbValue" value="58288c3b-a0c3-4b0d-85a7-49115aab5845" />
-    <option name="sourceModelValue" value="backend-springboot:backend-springboot" />
+    <option name="sourceModelValue" value="backend-springboot:entityManagerFactory" />
     <option name="targetDbValue" value="58288c3b-a0c3-4b0d-85a7-49115aab5845" />
     <option name="updateChangeLogPath" value="backend-springboot/src/main/resources/db/changelog/db.changelog-master.yaml" />
     <option name="updateDbConnectionName" value="58288c3b-a0c3-4b0d-85a7-49115aab5845" />

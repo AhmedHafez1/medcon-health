@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1745191132607-1
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: average_rating
+            newDataType: DECIMAL
+            tableName: doctor
+  - changeSet:
+      id: 1745191132607-2
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - modifyDataType:
+            columnName: consultation_fee
+            newDataType: DECIMAL
+            tableName: doctor
+
