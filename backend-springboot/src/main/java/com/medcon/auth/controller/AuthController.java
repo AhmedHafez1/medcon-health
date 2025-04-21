@@ -4,6 +4,7 @@ import com.medcon.auth.dto.AuthResponse;
 import com.medcon.auth.dto.LoginRequest;
 import com.medcon.auth.dto.RegisterRequest;
 import com.medcon.auth.service.AuthService;
+import com.medcon.auth.service.impl.AuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

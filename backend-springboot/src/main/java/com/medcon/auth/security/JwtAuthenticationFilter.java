@@ -1,7 +1,7 @@
 package com.medcon.auth.security;
 
 import com.medcon.user.repository.UserRepository;
-import com.medcon.auth.service.JwtService;
+import com.medcon.auth.service.impl.JwtServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final UserRepository userRepository;
 
     @Override

@@ -1,7 +1,8 @@
-package com.medcon.user;
+package com.medcon.user.controller;
 
 import com.medcon.user.dto.UserDto;
 import com.medcon.user.service.UserService;
+import com.medcon.user.service.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
