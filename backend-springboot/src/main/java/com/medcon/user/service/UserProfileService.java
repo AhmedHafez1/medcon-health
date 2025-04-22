@@ -8,6 +8,7 @@ import com.medcon.user.dto.UserProfileDto;
  */
 
 public interface UserProfileService {
-    UserProfileDto getUserProfile();
+    UserProfileDto getUserProfile(Long userId);
+
     UserProfileDto updateUserProfile(UserProfileDto userProfileDto);
 }

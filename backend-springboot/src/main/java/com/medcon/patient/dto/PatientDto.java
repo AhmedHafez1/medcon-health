@@ -3,7 +3,8 @@ package com.medcon.patient.dto;
 public record PatientDto(
         Long id,
         Long userId,
-        String fullName,
+        String firstName,
+        String lastName,
         String email,
         String phoneNumber,
         String emergencyContact,

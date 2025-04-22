@@ -4,7 +4,6 @@ import com.medcon.user.entity.Role;
 
 public record UserDto(
         Long id,
-        String fullName,
         String email,
         Role role
 ) {

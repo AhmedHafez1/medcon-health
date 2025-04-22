@@ -9,14 +9,10 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
-    UserProfileMapper INSTANCE = Mappers.getMapper(UserProfileMapper.class);
-
     @Mappings({
             @Mapping(source = "user.id", target = "userId"),
-            @Mapping(source = "user.fullName", target = "fullName"),
             @Mapping(source = "user.email", target = "email"),
             @Mapping(source = "user.role", target = "role"),
-            @Mapping(source = "user.address", target = "address"),
     })
     UserProfileDto toDto(UserProfile userProfile);
 

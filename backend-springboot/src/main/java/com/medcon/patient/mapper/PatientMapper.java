@@ -13,9 +13,10 @@ public interface PatientMapper {
 
     @Mappings({
             @Mapping(target = "userId", source = "user.id"),
-            @Mapping(target = "fullName", source = "user.fullName"),
             @Mapping(target = "email", source = "user.email"),
-            @Mapping(target = "address", source = "user.address"),
+            @Mapping(target = "firstName", source = "user.userProfile.firstName"),
+            @Mapping(target = "lastName", source = "user.userProfile.lastName"),
+            @Mapping(target = "address", source = "user.userProfile.address"),
     })
     PatientDto toDto(Patient patient);
 

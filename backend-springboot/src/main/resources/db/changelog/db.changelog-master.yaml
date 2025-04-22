@@ -1,17 +1,4 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/001-create-users-table.yaml
-  - include:
-      file: db/changelog/002-insert-admin-user.yaml
-  - include:
-      file: db/changelog/003-add-address-user.yaml
-  - include:
-      file: db/changelog/004-full_name-not-nullable.yaml
-  - include:
-      file: db/changelog/005-doctor-patient-profile.yaml
-  - include:
-      file: db/changelog/006-clean-user.yaml
-  - include:
-      file: db/changelog/007-user-design-refactor.yaml
-  - include:
-      file: db/changelog/008-remove-address-from-user-profile.yaml
+  databaseChangeLog:
+    - include:
+        file: 0001-init.yaml
+        relativeToChangelogFile: true

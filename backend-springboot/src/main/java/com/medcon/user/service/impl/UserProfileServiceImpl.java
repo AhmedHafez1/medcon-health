@@ -1,16 +1,44 @@
 package com.medcon.user.service.impl;
 
+import com.medcon.auth.service.AuthService;
+import com.medcon.exception.ForbiddenException;
+import com.medcon.exception.NotFoundException;
 import com.medcon.user.dto.UserProfileDto;
+import com.medcon.user.mapper.UserProfileMapper;
+import com.medcon.user.repository.UserProfileRepository;
 import com.medcon.user.service.UserProfileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserProfileServiceImpl implements UserProfileService {
-    public UserProfileDto getUserProfile() {
-        return null;
+    private final UserProfileRepository userProfileRepository;
+    private final UserProfileMapper userProfileMapper;
+    private final AuthService authService;
+
+    @Override
+    public UserProfileDto getUserProfile(Long userId) {
+        var userProfile = userProfileRepository.findByUserId(userId)
+                .orElseThrow(() -> new NotFoundException("User profile not found", "UserProfile"));
+
+        return userProfileMapper.toDto(userProfile);
     }
 
+    @Override
     public UserProfileDto updateUserProfile(UserProfileDto userProfileDto) {
-        return null;
+        var existingProfile = getUserProfile(userProfileDto.userId());
+
+        if (existingProfile != null) {
+            var currentUserEmail = authService.getAuthentication().getName();
+
+            if (!currentUserEmail.equals(existingProfile.email())) {
+                throw new ForbiddenException("You do not have permission to update this profile");
+            }
+        }
+
+        var userProfile = userProfileRepository.save(userProfileMapper.toEntity(userProfileDto));
+
+        return userProfileMapper.toDto(userProfile);
     }
 }

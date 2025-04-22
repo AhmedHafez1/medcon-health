@@ -53,6 +53,15 @@ public class GlobalExceptionHandler {
         ));
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<?> handleForbiddenException(ForbiddenException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "message", ex.getMessage(),
+                "status", HttpStatus.FORBIDDEN.value()
+        ));
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of(

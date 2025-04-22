@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1745106676967-1
+      id: 1745294041314-1
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -59,7 +59,7 @@ databaseChangeLog:
                   type: DATETIME
             tableName: doctor
   - changeSet:
-      id: 1745106676967-2
+      id: 1745294041314-2
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -89,6 +89,11 @@ databaseChangeLog:
                   name: end_time
                   type: TIME
               - column:
+                  constraints:
+                    nullable: false
+                  name: doctor_id
+                  type: BIGINT
+              - column:
                   name: created_at
                   type: DATETIME
               - column:
@@ -96,7 +101,7 @@ databaseChangeLog:
                   type: DATETIME
             tableName: doctor_availability
   - changeSet:
-      id: 1745106676967-3
+      id: 1745294041314-3
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -107,7 +112,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: pk_patients
+                    primaryKeyName: pk_patient
                   name: id
                   type: BIGINT
               - column:
@@ -127,9 +132,46 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: DATETIME
-            tableName: patients
+            tableName: patient
   - changeSet:
-      id: 1745106676967-4
+      id: 1745294041314-4
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_user
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: role
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: DATETIME
+              - column:
+                  name: updated_at
+                  type: DATETIME
+            tableName: user
+  - changeSet:
+      id: 1745294041314-5
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -143,6 +185,16 @@ databaseChangeLog:
                     primaryKeyName: pk_user_profile
                   name: id
                   type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_name
+                  type: VARCHAR(255)
               - column:
                   name: dob
                   type: DATE
@@ -171,21 +223,7 @@ databaseChangeLog:
                   type: BIGINT
             tableName: user_profile
   - changeSet:
-      id: 1745106676967-5
-      author: ahafez
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - addColumn:
-            columns:
-              - column:
-                  name: created_at
-                  type: DATETIME
-              - column:
-                  name: updated_at
-                  type: DATETIME
-            tableName: users
-  - changeSet:
-      id: 1745106676967-7
+      id: 1745294041314-6
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -194,7 +232,7 @@ databaseChangeLog:
             constraintName: uc_doctor_license_number
             tableName: doctor
   - changeSet:
-      id: 1745106676967-8
+      id: 1745294041314-7
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -203,16 +241,25 @@ databaseChangeLog:
             constraintName: uc_doctor_user
             tableName: doctor
   - changeSet:
-      id: 1745106676967-9
+      id: 1745294041314-8
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - addUniqueConstraint:
             columnNames: user_id
-            constraintName: uc_patients_user
-            tableName: patients
+            constraintName: uc_patient_user
+            tableName: patient
   - changeSet:
-      id: 1745106676967-10
+      id: 1745294041314-9
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uc_user_email
+            tableName: user
+  - changeSet:
+      id: 1745294041314-10
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -221,7 +268,18 @@ databaseChangeLog:
             constraintName: uc_user_profile_user
             tableName: user_profile
   - changeSet:
-      id: 1745106676967-11
+      id: 1745294041314-11
+      author: ahafez
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: doctor_id
+            baseTableName: doctor_availability
+            constraintName: FK_DOCTOR_AVAILABILITY_ON_DOCTOR
+            referencedColumnNames: id
+            referencedTableName: doctor
+  - changeSet:
+      id: 1745294041314-12
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -230,20 +288,20 @@ databaseChangeLog:
             baseTableName: doctor
             constraintName: FK_DOCTOR_ON_USER
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: user
   - changeSet:
-      id: 1745106676967-12
+      id: 1745294041314-13
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: user_id
-            baseTableName: patients
-            constraintName: FK_PATIENTS_ON_USER
+            baseTableName: patient
+            constraintName: FK_PATIENT_ON_USER
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: user
   - changeSet:
-      id: 1745106676967-13
+      id: 1745294041314-14
       author: ahafez
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -252,5 +310,5 @@ databaseChangeLog:
             baseTableName: user_profile
             constraintName: FK_USER_PROFILE_ON_USER
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: user
 
