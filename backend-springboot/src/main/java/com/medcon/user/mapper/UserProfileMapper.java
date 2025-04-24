@@ -12,7 +12,7 @@ public interface UserProfileMapper {
     @Mappings({
             @Mapping(source = "user.id", target = "userId"),
             @Mapping(source = "user.email", target = "email"),
-            @Mapping(source = "user.role", target = "role"),
+            @Mapping(source = "user.role", target = "role")
     })
     UserProfileDto toDto(UserProfile userProfile);
 
