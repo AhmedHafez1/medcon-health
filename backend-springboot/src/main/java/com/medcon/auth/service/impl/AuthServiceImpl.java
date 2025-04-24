@@ -31,6 +31,8 @@ public class AuthServiceImpl implements AuthService {
 
         User user = authMapper.toUser(request);
 
+        user.setPassword(passwordEncoder.encode(request.password()));
+
         userRepo.save(user);
 
         String token = jwtService.generateToken(user);
