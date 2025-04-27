@@ -5,7 +5,7 @@ import com.medcon.user.service.UserProfileService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user/profile")
+@RequestMapping("/api/users/profile")
 public class UserProfileController {
     private final UserProfileService userProfileService;
 
