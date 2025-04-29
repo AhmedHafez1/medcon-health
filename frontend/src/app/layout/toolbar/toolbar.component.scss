@@ -1,12 +1,81 @@
 .toolbar {
+  padding: 0;
+}
+
+.toolbar-container {
   display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 64px;
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+  border-radius: 4px;
 }
 
 .app-name {
-  font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.navigation {
+  margin-left: 24px;
+  display: flex;
+  gap: 8px;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-menu-button {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom styling for the user menu */
+::ng-deep .user-menu {
+  padding: 0;
+}
+
+::ng-deep .user-info {
+  padding: 16px;
+  text-align: center;
+}
+
+::ng-deep .user-info h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+::ng-deep .user-info p {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
 }
