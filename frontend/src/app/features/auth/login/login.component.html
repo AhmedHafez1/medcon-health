@@ -17,17 +17,12 @@
             type="email"
           />
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="form.get('email')?.hasError('required')">
-            Email is required
-          </mat-error>
-          <mat-error
-            *ngIf="
-              form.get('email')?.hasError('email') &&
-              !form.get('email')?.hasError('required')
-            "
-          >
-            Please enter a valid email address
-          </mat-error>
+          @if (form.get('email')?.hasError('required')) {
+          <mat-error> Email is required </mat-error>
+          } @if (form.get('email')?.hasError('email') &&
+          !form.get('email')?.hasError('required')) {
+          <mat-error> Please enter a valid email address </mat-error>
+          }
         </mat-form-field>
 
         <!-- Password -->
@@ -49,17 +44,12 @@
               hidePassword ? "visibility_off" : "visibility"
             }}</mat-icon>
           </button>
-          <mat-error *ngIf="form.get('password')?.hasError('required')">
-            Password is required
-          </mat-error>
-          <mat-error
-            *ngIf="
-              form.get('password')?.hasError('minlength') &&
-              !form.get('password')?.hasError('required')
-            "
-          >
-            Password must be at least 6 characters
-          </mat-error>
+          @if (form.get('password')?.hasError('required')) {
+          <mat-error> Password is required </mat-error>
+          } @if (form.get('password')?.hasError('minlength') &&
+          !form.get('password')?.hasError('required')) {
+          <mat-error> Password must be at least 6 characters </mat-error>
+          }
         </mat-form-field>
 
         <!-- Submit Button -->
@@ -71,12 +61,11 @@
             class="submit-button"
             [disabled]="form.invalid || isSubmitting"
           >
-            <mat-spinner
-              *ngIf="isSubmitting"
-              diameter="20"
-              class="spinner"
-            ></mat-spinner>
-            <span *ngIf="!isSubmitting">Login</span>
+            @if (isSubmitting) {
+            <mat-spinner diameter="20" class="spinner"></mat-spinner>
+            } @if (!isSubmitting) {
+            <span>Login</span>
+            }
           </button>
           <button
             mat-button
