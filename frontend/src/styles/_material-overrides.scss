@@ -21,4 +21,10 @@ html {
       container-text-color: var(--mat-sys-on-primary-container),
     )
   );
+
+  @include mat.sidenav-overrides(
+    (
+      container-background-color: var(--mat-sys-surface-variant),
+    )
+  );
 }
