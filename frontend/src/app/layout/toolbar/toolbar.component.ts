@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-toolbar',
   imports: [
@@ -14,6 +15,7 @@ import { MatDivider } from '@angular/material/divider';
     MatButtonModule,
     MatMenuModule,
     MatDivider,
+    RouterLink,
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
