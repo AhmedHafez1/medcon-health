@@ -21,6 +21,5 @@ export interface UserProfileUpdate {
   gender: string;
   phone: string;
   address: string;
-  profilePicture: string | null;
   dob: Date | null;
 }
