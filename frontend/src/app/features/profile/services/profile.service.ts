@@ -14,8 +14,8 @@ export class ProfileService {
   /**
    * Get current user's profile information
    */
-  getUserProfile(): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.apiUrl).pipe(
+  getUserProfile(userId: number): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/${userId}`).pipe(
       catchError((error) => {
         console.error('Error fetching user profile:', error);
         return throwError(

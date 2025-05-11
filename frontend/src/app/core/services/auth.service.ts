@@ -4,12 +4,16 @@ import { tap } from 'rxjs';
 import { Login } from '../../features/auth/model/login.model';
 import { environment } from '../../../environments/environment';
 import { Register } from '../../features/auth/model/register.model';
-import { AuthResponse } from '../../features/auth/model/auth-response.model';
+import {
+  AuthResponse,
+  User,
+} from '../../features/auth/model/auth-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly apiUrl = environment.apiUrl + '/api/auth';
   private readonly tokenKey = 'medcon-token';
+  private readonly userKey = 'user';
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +24,12 @@ export class AuthService {
    * @return The result of the POST request to the login endpoint.
    */
   login(loginData: Login) {
-    return this.http
-      .post<AuthResponse>(`${this.apiUrl}/login`, loginData)
-      .pipe(tap((res) => localStorage.setItem(this.tokenKey, res.token)));
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, loginData).pipe(
+      tap((res) => {
+        localStorage.setItem(this.tokenKey, res.token);
+        localStorage.setItem(this.userKey, JSON.stringify(res.user));
+      })
+    );
   }
 
   /**
@@ -39,6 +46,10 @@ export class AuthService {
 
   get token() {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  get user() {
+    return JSON.parse(localStorage.getItem(this.userKey) || '{}') as User;
   }
 
   logout() {

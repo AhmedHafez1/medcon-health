@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token, user.getEmail(), user.getRole().name());
+        return new AuthResponse(token, authMapper.toUserDto(user));
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
 
         String token = jwtService.generateToken(user);
 
-        return new AuthResponse(token, user.getEmail(), user.getRole().name());
+        return new AuthResponse(token, authMapper.toUserDto(user));
     }
 
     @Override

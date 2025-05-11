@@ -13,8 +13,8 @@ public class UserProfileController {
         this.userProfileService = userProfileService;
     }
 
-    @GetMapping
-    public UserProfileDto getUserProfile(@RequestParam Long userId) {
+    @GetMapping("/{userId}")
+    public UserProfileDto getUserProfile(@PathVariable Long userId) {
         return userProfileService.getUserProfile(userId);
     }
 
