@@ -17,7 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserProfile, UserProfileUpdate } from '../model/user-profile.model';
+import { UserProfile } from '../model/user-profile.model';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -96,7 +96,7 @@ export class EditProfileComponent implements OnInit {
 
   populateForm(profile: UserProfile): void {
     // If the dateOfBirth is a string, convert it to a Date object
-    let dob = profile.dob ? new Date(profile.dob) : null;
+    const dob = profile.dob ? new Date(profile.dob) : null;
 
     this.profileForm.patchValue({
       email: profile.email,
@@ -143,7 +143,7 @@ export class EditProfileComponent implements OnInit {
           email: this.profileForm.get('email')?.value,
         })
         .subscribe({
-          next: (response) => {
+          next: () => {
             this.submitting.set(false);
             this.snackBar.open('Profile updated successfully', 'Close', {
               duration: 3000,
