@@ -27,7 +27,6 @@ pipeline {
         stage('Package Application') {
             steps {
                 sh 'mkdir -p dist'
-                sh 'cp backend/target/*.jar dist/'
                 sh 'cp -r frontend/dist/* dist/'
                 archiveArtifacts artifacts: 'dist/**', fingerprint: true
             }
