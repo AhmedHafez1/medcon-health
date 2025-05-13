@@ -9,7 +9,7 @@ pipeline {
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
-                    sh 'npm ci'
+                    sh 'npm ci --no-audit'
                     sh 'npm run lint'
                     sh 'npm run build --configuration=production'
                 }
@@ -19,8 +19,7 @@ pipeline {
         stage('Test Frontend') {
             steps {
                 dir('frontend') {
-                    sh 'npm run test -- --watch=false --browsers=ChromeHeadlessNoSandbox'
-                    junit '**/test-results/*.xml'
+                    sh 'npm run test'
                 }
             }
         }

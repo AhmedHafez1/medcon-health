@@ -10,16 +10,7 @@ module.exports = {
     },
   },
   coverageDirectory: "coverage",
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "./test-results",
-        outputName: "junit.xml",
-      },
-    ],
-  ],
+  reporters: ["default"],
   // For handling Angular components with async lifecycle hooks
   testEnvironment: "jsdom",
 };
