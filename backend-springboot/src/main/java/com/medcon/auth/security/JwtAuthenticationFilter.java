@@ -1,16 +1,24 @@
 package com.medcon.auth.security;
 
+import com.medcon.auth.service.JwtService;
+import com.medcon.exception.UnAuthorizedException;
 import com.medcon.user.repository.UserRepository;
-import com.medcon.auth.service.impl.JwtServiceImpl;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -22,29 +30,100 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    private final JwtServiceImpl jwtService;
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
+    private static final int BEARER_PREFIX_LENGTH = 7;
+    private final JwtService jwtService;
     private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
+            @NotNull HttpServletRequest request,
+            @NotNull HttpServletResponse response,
+            @NotNull FilterChain filterChain
     ) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userEmail;
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+        try {
+
+            String jwt = extractJwtFromRequest(request);
+            if (jwt == null) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            // If authentication context is already set, skip processing
+            if (SecurityContextHolder.getContext().getAuthentication() != null) {
+                logger.debug("Authentication context already set, skipping JWT processing");
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            // Process the JWT token and set the authentication context
+            processJwtToken(jwt, request);
+
+        } catch (ExpiredJwtException e) {
+            logger.warn("JWT token has expired: {}", e.getMessage());
+            handleAuthenticationError(response, "Token expired");
+            return;
+        } catch (MalformedJwtException e) {
+            logger.warn("Invalid JWT token format: {}", e.getMessage());
+            handleAuthenticationError(response, "Invalid token format");
+            return;
+        } catch (UnAuthorizedException e) {
+            logger.warn("Unauthorized access: {}", e.getMessage());
+            handleAuthenticationError(response, e.getMessage());
+            return;
+        } catch (Exception e) {
+            logger.error("Error processing JWT token: ", e);
+            handleAuthenticationError(response, "Authentication error");
             return;
         }
 
-        jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        filterChain.doFilter(request, response);
+    }
 
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+    /**
+     * Extracts JWT token from the Authorization header.
+     */
+    private String extractJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(BEARER_PREFIX_LENGTH);
+        }
+
+        return null;
+    }
+
+    /**
+     * Handles authentication errors by setting appropriate response status and message.
+     */
+    private void handleAuthenticationError(HttpServletResponse response,
+                                           String message) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        String jsonResponse = String.format(
+                "{\"error\": \"Authentication failed\", \"message\": \"%s\", \"timestamp\": %d}",
+                message,
+                System.currentTimeMillis()
+        );
+
+        response.getWriter().write(jsonResponse);
+        response.getWriter().flush();
+        response.getWriter().close();
+    }
+
+    /**
+     * Processes the JWT token and sets the authentication context.
+     */
+    private void processJwtToken(String jwt, HttpServletRequest request) {
+        String userEmail = jwtService.extractUsername(jwt);
+
+        if (userEmail != null) {
             var user = userRepository.findByEmail(userEmail).orElse(null);
             if (user != null && jwtService.isTokenValid(jwt, user)) {
                 var authorities = user.getAuthorities();
@@ -54,9 +133,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                logger.warn("User not found or token is invalid: {}", userEmail);
+                throw new UnAuthorizedException("User not found or token is invalid for email");
             }
         }
-
-        filterChain.doFilter(request, response);
     }
 }

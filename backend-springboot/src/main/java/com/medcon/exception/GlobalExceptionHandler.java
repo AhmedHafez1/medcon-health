@@ -1,5 +1,6 @@
 package com.medcon.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -45,10 +46,19 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnAuthorizedException.class)
-    public ResponseEntity<?> handleUnAuthorizedException(InvalidCredentialsException ex, WebRequest request) {
+    public ResponseEntity<?> handleUnAuthorizedException(UnAuthorizedException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                 "timestamp", LocalDateTime.now(),
                 "message", ex.getMessage(),
+                "status", HttpStatus.UNAUTHORIZED.value()
+        ));
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<?> handleExpiredJwtException(ExpiredJwtException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                "timestamp", LocalDateTime.now(),
+                "message", "Token expired",
                 "status", HttpStatus.UNAUTHORIZED.value()
         ));
     }

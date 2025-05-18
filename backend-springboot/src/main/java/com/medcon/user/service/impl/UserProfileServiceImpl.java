@@ -4,7 +4,6 @@ import com.medcon.auth.service.AuthService;
 import com.medcon.exception.ForbiddenException;
 import com.medcon.exception.NotFoundException;
 import com.medcon.user.dto.UserProfileDto;
-import com.medcon.user.entity.UserProfile;
 import com.medcon.user.mapper.UserProfileMapper;
 import com.medcon.user.repository.UserProfileRepository;
 import com.medcon.user.repository.UserRepository;
