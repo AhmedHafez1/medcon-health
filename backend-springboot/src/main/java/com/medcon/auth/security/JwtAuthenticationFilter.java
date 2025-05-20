@@ -2,6 +2,7 @@ package com.medcon.auth.security;
 
 import com.medcon.auth.service.JwtService;
 import com.medcon.exception.UnAuthorizedException;
+import com.medcon.shared.constants.AppConstants;
 import com.medcon.user.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -46,7 +47,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         try {
-
             String jwt = extractJwtFromRequest(request);
             if (jwt == null) {
                 filterChain.doFilter(request, response);
@@ -100,21 +100,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     /**
      * Handles authentication errors by setting appropriate response status and message.
      */
-    private void handleAuthenticationError(HttpServletResponse response,
-                                           String message) throws IOException {
+    private void handleAuthenticationError(HttpServletResponse response, String message) throws IOException {
+        // Clear any existing response content
+        response.resetBuffer();
+
+        // Set response headers
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", AppConstants.FRONTEND_URL);
 
+        // Create JSON response
         String jsonResponse = String.format(
                 "{\"error\": \"Authentication failed\", \"message\": \"%s\", \"timestamp\": %d}",
-                message,
+                message.replace("\"", "\\\""), // Escape quotes to prevent JSON issues
                 System.currentTimeMillis()
         );
 
         response.getWriter().write(jsonResponse);
         response.getWriter().flush();
-        response.getWriter().close();
     }
 
     /**

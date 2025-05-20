@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { EMPTY, Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UserProfile, UserProfileUpdate } from '../model/user-profile.model';
 
@@ -14,15 +14,20 @@ export class ProfileService {
   /**
    * Get current user's profile information
    */
-  getUserProfile(userId: number): Observable<UserProfile> {
-    return this.http.get<UserProfile>(`${this.apiUrl}/${userId}`).pipe(
-      catchError((error) => {
-        console.error('Error fetching user profile:', error);
-        return throwError(
-          () => new Error('Failed to fetch user profile. Please try again.')
-        );
+  getUserProfile(userId: number) {
+    return this.http
+      .get<UserProfile>(`${this.apiUrl}/${userId}`, {
+        observe: 'response',
       })
-    );
+      .pipe(
+        map((response: HttpResponse<UserProfile>) => {
+          return response.body!;
+        }),
+        catchError((error) => {
+          console.error('Error fetching user profile:', error);
+          return EMPTY;
+        })
+      );
   }
 
   /**
@@ -32,9 +37,7 @@ export class ProfileService {
     return this.http.post<UserProfile>(this.apiUrl, profile).pipe(
       catchError((error) => {
         console.error('Error updating user profile:', error);
-        return throwError(
-          () => new Error('Failed to update profile. Please try again.')
-        );
+        return EMPTY;
       })
     );
   }
