@@ -143,4 +143,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        var path = request.getServletPath();
+
+        return path.startsWith("/api/auth") || path.startsWith("/api/health");
+    }
 }
