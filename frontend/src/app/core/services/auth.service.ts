@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
 import { Login } from '../../features/auth/model/login.model';
 import { environment } from '../../../environments/environment';
@@ -8,14 +8,16 @@ import {
   AuthResponse,
   User,
 } from '../../features/auth/model/auth-response.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+
   private readonly apiUrl = environment.apiUrl + '/api/auth';
   private readonly tokenKey = 'medcon-token';
   private readonly userKey = 'user';
-
-  constructor(private http: HttpClient) {}
 
   /**
    * Log in to the system.
@@ -54,6 +56,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(this.tokenKey);
+    this.router.navigate(['login']);
   }
 
   /**

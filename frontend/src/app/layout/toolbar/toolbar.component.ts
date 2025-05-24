@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-toolbar',
   imports: [
@@ -21,4 +22,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './toolbar.component.scss',
   standalone: true,
 })
-export class ToolbarComponent {}
+export class ToolbarComponent {
+  private readonly authService = inject(AuthService);
+  logout() {
+    this.authService.logout();
+  }
+}
