@@ -49,8 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String jwt = extractJwtFromRequest(request);
             if (jwt == null) {
-                filterChain.doFilter(request, response);
-                return;
+                throw new UnAuthorizedException("JWT token is missing or invalid");
             }
 
             // If authentication context is already set, skip processing

@@ -8,7 +8,7 @@ public class AppConstants {
     /**
      * Frontend URL for CORS configuration and other frontend-related operations.
      */
-    public static final String FRONTEND_URL = "http://localhost:4200";
+    public static final String FRONTEND_URL = "http://localhost:4200/";
 
     // Private constructor to prevent instantiation of utility class
     private AppConstants() {
