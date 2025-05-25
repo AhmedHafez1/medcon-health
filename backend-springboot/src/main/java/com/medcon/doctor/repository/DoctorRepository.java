@@ -1,6 +1,9 @@
 package com.medcon.doctor.repository;
 
 import com.medcon.doctor.entity.Doctor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -69,4 +72,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     // Count by specialization
     Long countBySpecializationContainingIgnoreCase(String specialization);
+
+    boolean existsByUserId(@NotNull(message = "User ID is required") Long userId);
+
+    boolean existsByLicenseNumber(@NotBlank(message = "License number is required")
+                                  @Size(max = 50, message = "License number must not exceed 50 characters")
+                                  String licenseNumber);
 }

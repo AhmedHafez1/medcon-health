@@ -19,14 +19,12 @@ public interface DoctorAvailabilityRepository extends JpaRepository<DoctorAvaila
     @Query("SELECT COUNT(da) > 0 FROM DoctorAvailability da WHERE " +
             "da.doctor.id = :doctorId AND da.dayOfWeek = :dayOfWeek AND " +
             "((:endTime >= da.startTime AND :endTime <= da.endTime) OR " +
-            "(:startTime >= da.startTime  AND :startTime <= da.endTime)) AND " +
-            "(:availabilityId IS NULL OR da.id != :availabilityId)")
+            "(:startTime >= da.startTime  AND :startTime <= da.endTime))")
     boolean hasOverlappingAvailability(
             @Param("doctorId") Long doctorId,
             @Param("dayOfWeek") Integer dayOfWeek,
             @Param("startTime") LocalTime startTime,
-            @Param("endTime") LocalTime endTime,
-            @Param("availabilityId") Long availabilityId
+            @Param("endTime") LocalTime endTime
     );
 
     // Delete by doctor ID
