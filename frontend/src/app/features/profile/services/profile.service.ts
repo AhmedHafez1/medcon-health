@@ -9,6 +9,7 @@ import { UserProfile, UserProfileUpdate } from '../model/user-profile.model';
 })
 export class ProfileService {
   private http = inject(HttpClient);
+
   private apiUrl = `${environment.apiUrl}/api/users/profile`;
 
   /**
@@ -25,7 +26,7 @@ export class ProfileService {
         }),
         catchError((error) => {
           console.error('Error fetching user profile:', error);
-          return EMPTY;
+          return throwError(() => error);
         })
       );
   }
