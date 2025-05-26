@@ -18,7 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../core/services/auth.service';
-import { ROLE } from '../../../shared/enums/role.enum';
+import { Role } from '../../../shared/enums/role.enum';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      role: [ROLE.PATIENT, Validators.required],
+      role: [Role.PATIENT, Validators.required],
     });
   }
 

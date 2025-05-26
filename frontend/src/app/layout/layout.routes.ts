@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
+import { profileRoutes } from '../features/profile/profile.routes';
 
 export const layoutRoutes: Routes = [
   {
@@ -13,6 +14,7 @@ export const layoutRoutes: Routes = [
             (m) => m.DashboardComponent
           ),
       },
+      ...profileRoutes,
       {
         path: '',
         redirectTo: '/dashboard',

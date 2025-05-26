@@ -6,6 +6,7 @@ import com.medcon.exception.UnAuthorizedException;
 import com.medcon.user.mapper.UserMapper;
 import com.medcon.user.repository.UserRepository;
 import com.medcon.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,17 +20,11 @@ import java.util.List;
  */
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final AuthService authService;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AuthService authService) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-        this.authService = authService;
-    }
 
     /**
      * Retrieves the current authenticated user.

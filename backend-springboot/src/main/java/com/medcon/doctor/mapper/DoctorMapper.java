@@ -1,21 +1,20 @@
 package com.medcon.doctor.mapper;
 
-import com.medcon.doctor.dto.DoctorDto;
+import com.medcon.doctor.dto.DoctorAvailabilityDto;
+import com.medcon.doctor.dto.DoctorResponse;
+import com.medcon.doctor.dto.request.DoctorRequest;
 import com.medcon.doctor.entity.Doctor;
+import com.medcon.doctor.entity.DoctorAvailability;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
 public interface DoctorMapper {
-    @Mappings({
-            @Mapping(source = "user.id", target = "userId"),
-            @Mapping(source = "user.email", target = "email"),
-            @Mapping(source = "user.userProfile.firstName", target = "firstName"),
-            @Mapping(source = "user.userProfile.lastName", target = "lastName"),
-            @Mapping(source = "user.userProfile.address", target = "address"),
-    })
-    DoctorDto toDto(Doctor doctor);
 
-    Doctor toEntity(DoctorDto doctorDTO);
+    DoctorResponse toDto(Doctor doctor);
+
+    Doctor toEntity(DoctorRequest doctorRequest);
+
+    DoctorAvailability toAvailabilityEntity(DoctorAvailabilityDto availabilityDto);
+
+    DoctorAvailabilityDto toAvailabilityDto(DoctorAvailability availability);
 }

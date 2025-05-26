@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar mat-elevation-z6">
+<mat-toolbar class="toolbar mat-elevation-z6" color="tertiary">
   <div class="toolbar-container">
     <div class="branding">
       <span class="app-name">MedCon</span>
@@ -23,19 +23,19 @@
 
       <mat-menu #userMenu="matMenu" class="user-menu">
         <div class="user-info">
-          <h3>Dr. Roberts</h3>
+          <h3>Dr. Ahmad</h3>
           <p>Cardiologist</p>
         </div>
         <mat-divider></mat-divider>
-        <button mat-menu-item>
+        <a mat-menu-item routerLink="/profile">
           <mat-icon>person</mat-icon>
           <span>Profile</span>
-        </button>
+        </a>
         <button mat-menu-item>
           <mat-icon>settings</mat-icon>
           <span>Settings</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           <span>Logout</span>
         </button>

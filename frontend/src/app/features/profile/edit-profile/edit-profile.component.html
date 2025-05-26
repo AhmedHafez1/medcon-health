@@ -1,0 +1,171 @@
+<div class="profile-edit-container">
+  <mat-card class="profile-edit-card">
+    <mat-card-header>
+      <mat-card-title>Edit Profile</mat-card-title>
+      <mat-card-subtitle>Update your profile information</mat-card-subtitle>
+    </mat-card-header>
+
+    @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+    } @else if (error()) {
+    <div class="error-container">
+      <p class="error-message">{{ error() }}</p>
+      <button mat-raised-button color="primary" (click)="loadProfile()">
+        <mat-icon>refresh</mat-icon>
+        Retry
+      </button>
+    </div>
+    } @else {
+    <mat-card-content>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="profile-image-section">
+          <div class="profile-image-container">
+            @if (imagePreview()) {
+            <img
+              [src]="imagePreview()"
+              alt="Profile Preview"
+              class="profile-image"
+            />
+            } @else if (profile()?.profilePicture) {
+            <img
+              [src]="profile()?.profilePicture"
+              alt="Profile"
+              class="profile-image"
+            />
+            } @else {
+            <div class="profile-image-placeholder">
+              <mat-icon>person</mat-icon>
+            </div>
+            }
+          </div>
+          <div class="image-upload-controls">
+            <input
+              type="file"
+              #fileInput
+              style="display: none"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+            />
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+              [disabled]="submitting()"
+            >
+              <mat-icon>photo_camera</mat-icon>
+              Change Photo
+            </button>
+            @if (imagePreview() && !profile()?.profilePicture) {
+            <button
+              type="button"
+              mat-button
+              color="warn"
+              (click)="removeImage()"
+              [disabled]="submitting()"
+            >
+              <mat-icon>delete</mat-icon>
+              Remove
+            </button>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              formControlName="firstName"
+              placeholder="Enter first name"
+            />
+            @if (profileForm.get('firstName')?.invalid &&
+            profileForm.get('firstName')?.touched) {
+            <mat-error>First name is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              formControlName="lastName"
+              placeholder="Enter last name"
+            />
+            @if (profileForm.get('lastName')?.invalid &&
+            profileForm.get('lastName')?.touched) {
+            <mat-error>Last name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-hint>Email cannot be changed</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              formControlName="phone"
+              placeholder="Enter phone number"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="dobPicker" formControlName="dob" />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dobPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <h3 class="address-heading">Address Information</h3>
+
+        <mat-form-field appearance="outline" class="form-field full-width">
+          <mat-label>Address Line 1</mat-label>
+          <input
+            matInput
+            formControlName="address"
+            placeholder="Enter address"
+          />
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button routerLink="/profile" [disabled]="submitting()">
+        CANCEL
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="profileForm.invalid || submitting()"
+      >
+        @if (submitting()) {
+        <mat-spinner diameter="20" color="accent"></mat-spinner>
+        SAVING... } @else { SAVE CHANGES }
+      </button>
+    </mat-card-actions>
+    }
+  </mat-card>
+</div>
