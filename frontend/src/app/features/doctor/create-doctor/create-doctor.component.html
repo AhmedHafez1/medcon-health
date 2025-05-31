@@ -1,0 +1,191 @@
+<div class="create-doctor-container">
+  <mat-card class="doctor-form-card">
+    <mat-card-header>
+      <mat-card-title>Create New Doctor</mat-card-title>
+      <mat-card-subtitle>Fill in the doctor's information</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h3 class="section-title">Basic Information</h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>User ID</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="userId"
+                placeholder="Enter user ID"
+              />
+              <mat-error>{{ getErrorMessage("userId") }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Specialization</mat-label>
+              <mat-select formControlName="specialization">
+                <mat-option *ngFor="let spec of specializations" [value]="spec">
+                  {{ spec }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ getErrorMessage("specialization") }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>License Number</mat-label>
+              <input
+                matInput
+                formControlName="licenseNumber"
+                placeholder="Enter license number"
+              />
+              <mat-error>{{ getErrorMessage("licenseNumber") }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Experience (Years)</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="experience"
+                placeholder="Years of experience"
+              />
+              <mat-error>{{ getErrorMessage("experience") }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Consultation Fee</mat-label>
+              <input
+                matInput
+                type="number"
+                step="0.01"
+                formControlName="consultationFee"
+                placeholder="Fee amount"
+              />
+              <span matPrefix>$&nbsp;</span>
+              <mat-error>{{ getErrorMessage("consultationFee") }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Bio</mat-label>
+              <textarea
+                matInput
+                formControlName="bio"
+                rows="4"
+                placeholder="Enter doctor's biography (optional)"
+              ></textarea>
+              <mat-hint
+                >{{ doctorForm.get("bio")?.value?.length || 0 }}/1000
+                characters</mat-hint
+              >
+              <mat-error>{{ getErrorMessage("bio") }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Availability Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <h3 class="section-title">Availability Schedule</h3>
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="addAvailability()"
+              class="add-btn"
+            >
+              <mat-icon>add</mat-icon>
+              Add Slot
+            </button>
+          </div>
+
+          <div formArrayName="availabilities" class="availability-list">
+            <div
+              *ngFor="
+                let availability of availabilities.controls;
+                let i = index
+              "
+              [formGroupName]="i"
+              class="availability-item"
+            >
+              <mat-card class="availability-card">
+                <div class="availability-header">
+                  <span class="slot-number">Slot {{ i + 1 }}</span>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    type="button"
+                    (click)="removeAvailability(i)"
+                    [disabled]="availabilities.length === 1"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+
+                <div class="availability-form">
+                  <mat-form-field appearance="outline" class="day-field">
+                    <mat-label>Day</mat-label>
+                    <mat-select formControlName="dayOfWeek">
+                      <mat-option *ngFor="let day of daysOfWeek" [value]="day">
+                        {{ day | titlecase }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="time-field">
+                    <mat-label>Start Time</mat-label>
+                    <input matInput type="time" formControlName="startTime" />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="time-field">
+                    <mat-label>End Time</mat-label>
+                    <input matInput type="time" formControlName="endTime" />
+                  </mat-form-field>
+
+                  <mat-slide-toggle
+                    formControlName="isActive"
+                    class="active-toggle"
+                  >
+                    Active
+                  </mat-slide-toggle>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button
+            mat-raised-button
+            type="button"
+            (click)="onReset()"
+            class="reset-btn"
+          >
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="doctorForm.invalid"
+            class="submit-btn"
+          >
+            <mat-icon>save</mat-icon>
+            Create Doctor
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
