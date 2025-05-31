@@ -65,7 +65,10 @@ export class EditProfileComponent implements OnInit {
 
   initForm(): void {
     this.profileForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        this.authService.user.email,
+        [Validators.required, Validators.email],
+      ],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       phone: [''],
@@ -88,8 +91,13 @@ export class EditProfileComponent implements OnInit {
         this.loading.set(false);
       },
       error: (err) => {
-        this.error.set(err.message || 'Failed to load profile');
         this.loading.set(false);
+
+        if (err.status === 404) {
+          return;
+        }
+
+        this.error.set(err.message || 'Failed to load profile');
       },
     });
   }
