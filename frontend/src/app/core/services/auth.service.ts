@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
-import { Login } from '../../features/auth/model/login.model';
+import { Login } from '../../features/auth/models/login.model';
 import { environment } from '../../../environments/environment';
-import { Register } from '../../features/auth/model/register.model';
+import { Register } from '../../features/auth/models/register.model';
 import {
   AuthResponse,
   User,
-} from '../../features/auth/model/auth-response.model';
+} from '../../features/auth/models/auth-response.model';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })

@@ -1,8 +1,7 @@
 <div class="create-doctor-container">
   <mat-card class="doctor-form-card">
     <mat-card-header>
-      <mat-card-title>Create New Doctor</mat-card-title>
-      <mat-card-subtitle>Fill in the doctor's information</mat-card-subtitle>
+      <mat-card-title>Register New Doctor</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -120,15 +119,6 @@
               <mat-card class="availability-card">
                 <div class="availability-header">
                   <span class="slot-number">Slot {{ i + 1 }}</span>
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    type="button"
-                    (click)="removeAvailability(i)"
-                    [disabled]="availabilities.length === 1"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
                 </div>
 
                 <div class="availability-form">
@@ -157,6 +147,16 @@
                   >
                     Active
                   </mat-slide-toggle>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    type="button"
+                    (click)="removeAvailability(i)"
+                    [disabled]="availabilities.length === 1"
+                    class="delete-btn"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
                 </div>
               </mat-card>
             </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,6 +23,10 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
 })
 export class ToolbarComponent {
+  public sidebarToggle = output<void>();
+  toggleSidebar() {
+    this.sidebarToggle.emit();
+  }
   private readonly authService = inject(AuthService);
   logout() {
     this.authService.logout();

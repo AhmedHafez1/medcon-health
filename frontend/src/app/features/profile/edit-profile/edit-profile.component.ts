@@ -17,7 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserProfile } from '../model/user-profile.model';
+import { UserProfile } from '../models/user-profile.model';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../../../core/services/auth.service';
 

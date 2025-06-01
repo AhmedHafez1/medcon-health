@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { EMPTY, Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { UserProfile, UserProfileUpdate } from '../model/user-profile.model';
+import { UserProfile, UserProfileUpdate } from '../models/user-profile.model';
 
 @Injectable({
   providedIn: 'root',

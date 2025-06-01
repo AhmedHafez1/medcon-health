@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
-import { UserProfile } from '../model/user-profile.model';
+import { UserProfile } from '../models/user-profile.model';
 import { ProfileService } from '../services/profile.service';
 import { AuthService } from '../../../core/services/auth.service';
 

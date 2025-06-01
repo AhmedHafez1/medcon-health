@@ -14,7 +14,11 @@ import { MatInput } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
-import { TitleCasePipe } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { specializations } from '../models/specialization.enum';
+import { DAYS } from '../../../shared/models/day.enum';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-doctor',
@@ -27,6 +31,9 @@ import { TitleCasePipe } from '@angular/common';
     MatOption,
     MatIcon,
     TitleCasePipe,
+    CommonModule,
+    MatSlideToggleModule,
+    MatButtonModule,
   ],
   templateUrl: './create-doctor.component.html',
   styleUrl: './create-doctor.component.scss',
@@ -35,7 +42,10 @@ export class CreateDoctorComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly snackBar = inject(MatSnackBar);
   private readonly doctorService = inject(DoctorService);
-  doctorForm!: FormGroup;
+
+  public doctorForm!: FormGroup;
+  public specializations = specializations;
+  public daysOfWeek = DAYS;
 
   ngOnInit(): void {
     this.doctorForm = this.createForm();
