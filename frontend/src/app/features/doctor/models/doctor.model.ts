@@ -1,5 +1,5 @@
 export interface DoctorAvailability {
-  dayOfWeek: string;
+  dayOfWeek: number;
   startTime: string;
   endTime: string;
   isActive: boolean;

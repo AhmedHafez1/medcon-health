@@ -67,4 +67,22 @@ public class Doctor {
     public void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", user=" + user +
+                ", specialization='" + specialization + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", experience=" + experience +
+                ", bio='" + bio + '\'' +
+                ", consultationFee=" + consultationFee +
+                ", isVerified=" + isVerified +
+                ", averageRating=" + averageRating +
+                ", totalRatings=" + totalRatings +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

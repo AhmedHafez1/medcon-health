@@ -1,19 +1,19 @@
 export enum Day {
-  MONDAY = 'MONDAY',
-  TUESDAY = 'TUESDAY',
-  WEDNESDAY = 'WEDNESDAY',
-  THURSDAY = 'THURSDAY',
-  FRIDAY = 'FRIDAY',
-  SATURDAY = 'SATURDAY',
-  SUNDAY = 'SUNDAY',
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY,
+  SUNDAY,
 }
 
-export const DAYS: Day[] = [
-  Day.MONDAY,
-  Day.TUESDAY,
-  Day.WEDNESDAY,
-  Day.THURSDAY,
-  Day.FRIDAY,
-  Day.SATURDAY,
-  Day.SUNDAY,
+export const DAYS: { value: number; label: string }[] = [
+  { value: Day.MONDAY, label: 'Monday' },
+  { value: Day.TUESDAY, label: 'Tuesday' },
+  { value: Day.WEDNESDAY, label: 'Wednesday' },
+  { value: Day.THURSDAY, label: 'Thursday' },
+  { value: Day.FRIDAY, label: 'Friday' },
+  { value: Day.SATURDAY, label: 'Saturday' },
+  { value: Day.SUNDAY, label: 'Sunday' },
 ];

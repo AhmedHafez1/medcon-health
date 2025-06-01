@@ -125,8 +125,11 @@
                   <mat-form-field appearance="outline" class="day-field">
                     <mat-label>Day</mat-label>
                     <mat-select formControlName="dayOfWeek">
-                      <mat-option *ngFor="let day of daysOfWeek" [value]="day">
-                        {{ day | titlecase }}
+                      <mat-option
+                        *ngFor="let day of daysOfWeek"
+                        [value]="day.value"
+                      >
+                        {{ day.label | titlecase }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>

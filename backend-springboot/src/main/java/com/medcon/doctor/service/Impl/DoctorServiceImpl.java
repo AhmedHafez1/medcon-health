@@ -45,12 +45,12 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = doctorMapper.toEntity(request);
         doctor.setUser(user);
 
-        doctor = doctorRepository.save(doctor);
-
         // Create availabilities if provided
         if (request.getAvailabilities() != null && !request.getAvailabilities().isEmpty()) {
-            createDoctorAvailabilities(doctor, request.getAvailabilities());
+            createDoctorAvailabilities(doctor);
         }
+
+        doctor = doctorRepository.save(doctor);
 
         log.info("Doctor created successfully with ID: {}", doctor.getId());
 
@@ -58,27 +58,24 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     // Private helper methods
-    private void createDoctorAvailabilities(Doctor doctor, List<DoctorAvailabilityDto> availabilityDtos) {
-        for (DoctorAvailabilityDto availabilityDto : availabilityDtos) {
-            validateAvailabilityRequest(availabilityDto);
-            validateNoOverlappingAvailability(doctor.getId(), availabilityDto);
-
-            DoctorAvailability availability = doctorMapper.toAvailabilityEntity(availabilityDto);
-
-            availabilityRepository.save(availability);
+    private void createDoctorAvailabilities(Doctor doctor) {
+        for (var availability : doctor.getAvailabilities()) {
+            validateAvailabilityRequest(availability);
+            validateNoOverlappingAvailability(doctor.getId(), availability);
+            availability.setDoctor(doctor);
         }
     }
 
-    private void validateAvailabilityRequest(DoctorAvailabilityDto availabilityDto) {
-        if (availabilityDto.getStartTime().isAfter(availabilityDto.getEndTime())) {
+    private void validateAvailabilityRequest(DoctorAvailability availability) {
+        if (availability.getStartTime().isAfter(availability.getEndTime())) {
             throw new BusinessException("Start time cannot be after end time");
         }
     }
 
-    private void validateNoOverlappingAvailability(Long doctorId, DoctorAvailabilityDto availabilityDto) {
+    private void validateNoOverlappingAvailability(Long doctorId, DoctorAvailability availability) {
         boolean hasOverlap = availabilityRepository.hasOverlappingAvailability(
-                doctorId, availabilityDto.getDayOfWeek(), availabilityDto.getStartTime(),
-                availabilityDto.getEndTime());
+                doctorId, availability.getDayOfWeek(), availability.getStartTime(),
+                availability.getEndTime());
 
         if (hasOverlap) {
             throw new BusinessException("Overlapping availability found for the same day and time");

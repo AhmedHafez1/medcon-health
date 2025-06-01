@@ -10,10 +10,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DoctorRequest } from '../models/doctor.model';
 import { DoctorService } from '../services/doctor.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatInput } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { MatIcon } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { specializations } from '../models/specialization.enum';
@@ -24,12 +24,12 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-create-doctor',
   imports: [
     MatCardModule,
-    MatInput,
+    MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelect,
     MatOption,
-    MatIcon,
+    MatIconModule,
     TitleCasePipe,
     CommonModule,
     MatSlideToggleModule,
