@@ -28,5 +28,5 @@ public interface DoctorAvailabilityRepository extends JpaRepository<DoctorAvaila
     );
 
     // Delete by doctor ID
-    void deleteByDoctorId(Long doctorId);
+    void deleteAllByDoctorId(Long id);
 }

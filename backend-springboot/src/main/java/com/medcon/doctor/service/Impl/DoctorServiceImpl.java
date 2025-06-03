@@ -1,6 +1,5 @@
 package com.medcon.doctor.service.Impl;
 
-import com.medcon.doctor.dto.DoctorAvailabilityDto;
 import com.medcon.doctor.dto.DoctorResponse;
 import com.medcon.doctor.dto.request.DoctorRequest;
 import com.medcon.doctor.entity.Doctor;
@@ -17,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.medcon.doctor.repository.*;
 import com.medcon.user.repository.UserRepository;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -53,6 +50,55 @@ public class DoctorServiceImpl implements DoctorService {
         doctor = doctorRepository.save(doctor);
 
         log.info("Doctor created successfully with ID: {}", doctor.getId());
+
+        return doctorMapper.toDto(doctor);
+    }
+
+    @Override
+    public DoctorResponse getDoctorByUserId(Long id) {
+        return doctorMapper.toDto(doctorRepository.findByUserId(id).orElseThrow(() ->
+                new NotFoundException("Doctor not found with ID: " + id, "Doctor")));
+    }
+
+    @Override
+    public DoctorResponse updateDoctor(Long userId, DoctorRequest request) {
+        log.info("Updating doctor with ID: {}", userId);
+
+        Doctor doctor = doctorRepository.findByUserId(userId).orElseThrow(() ->
+                new NotFoundException("Doctor not found with ID: " + userId, "Doctor"));
+
+        if (request.getLicenseNumber() != null && !request.getLicenseNumber().equals(doctor.getLicenseNumber())) {
+            if (doctorRepository.existsByLicenseNumber(request.getLicenseNumber()))
+                throw new AlreadyExistsException("Doctor with license number " + request.getLicenseNumber() + " already exists.", "Doctor");
+
+            doctor.setLicenseNumber(request.getLicenseNumber());
+        }
+
+        if (request.getSpecialization() != null) {
+            doctor.setSpecialization(request.getSpecialization());
+        }
+
+        if (request.getExperience() != null) {
+            doctor.setExperience(request.getExperience());
+        }
+
+        if (request.getBio() != null) {
+            doctor.setBio(request.getBio());
+        }
+
+        if (request.getConsultationFee() != null) {
+            doctor.setConsultationFee(request.getConsultationFee());
+        }
+
+        if (request.getAvailabilities() != null && !request.getAvailabilities().isEmpty()) {
+            // Clear existing availabilities
+            availabilityRepository.deleteAllByDoctorId(doctor.getId());
+            createDoctorAvailabilities(doctor);
+        }
+
+        doctor = doctorRepository.save(doctor);
+
+        log.info("Doctor updated successfully with ID: {}", userId);
 
         return doctorMapper.toDto(doctor);
     }
